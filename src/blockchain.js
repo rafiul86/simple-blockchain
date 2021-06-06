@@ -118,18 +118,17 @@ class Blockchain {
         let self = this;
         return new Promise(async (resolve, reject) => {
             try {
-                const time = parseInt(message.split(':')[1]);
+                let time = parseInt(message.split(':')[1]);
                 let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-                if(currentTime - time < 300){
-                    if (!bitcoinMessage.verify(message, address, signature)) {                
-                    return reject(new Error('Bitcoin message unverified.'));  
-                  }
-                  const data = { owner: address, star: star } 
-                  const block = new BlockClass.Block(data); 
-                  resolve(await self._addBlock(block));
-                }
+                if(currentTime - time < 3000){
+                    if(bitcoinMessage.verify(message, address, signature)){
+                        const data = { owner: address, star: star } 
+                      const block = new BlockClass.Block(data); 
+                      resolve(await self._addBlock(block));
+                    }
+                } 
             } catch (error) {
-                reject(new Error('Block must be added in less than 5 minutes.'))
+                reject(new Error(error))
             }
         });
     }
@@ -210,7 +209,7 @@ class Blockchain {
                         errorLog.push({ error: 'Block validation failed' })
                     }
                 }
-               resolve(errorLog) 
+                
             }              
         );
         });
