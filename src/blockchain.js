@@ -210,7 +210,7 @@ class Blockchain {
                         errorLog.push({ error: 'Block validation failed' })
                     }
                 }
-                
+               resolve(errorLog) 
             }              
         );
         });

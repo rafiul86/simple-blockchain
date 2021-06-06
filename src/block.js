@@ -75,6 +75,8 @@ class Block {
         // Resolve with the data if the object isn't the Genesis block
             if( myData && this.height > 0){
                 return myData
+            }else {
+                console.log('no data found')
             }
     }
 
