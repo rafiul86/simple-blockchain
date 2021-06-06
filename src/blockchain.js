@@ -89,7 +89,11 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            
+            try {
+                resolve(`${address}:${new Date().getTime().toString().slice(0, -3)}:starRegistry`)
+            } catch (error) {
+                reject (new Error(error))
+            }
         });
     }
 
@@ -113,7 +117,20 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            
+            try {
+                const time = parseInt(message.split(':')[1]);
+                let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+                if(currentTime - time < 300){
+                    if (!bitcoinMessage.verify(message, address, signature)) {                
+                    return reject(new Error('Bitcoin message unverified.'));  
+                  }
+                  const data = { owner: address, star: star } 
+                  const block = new BlockClass.Block(data); 
+                  resolve(await self._addBlock(block));
+                }
+            } catch (error) {
+                reject(new Error('Block must be added in less than 5 minutes.'))
+            }
         });
     }
 
@@ -126,7 +143,12 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-           
+            try {
+                const result = this.chain.find((block) => hash === block.hash);
+                 resolve(result)
+            } catch (error) {
+                reject(new Error(error))
+            }
         });
     }
 
@@ -157,7 +179,15 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
-            
+            try {
+                self.chain.forEach(async(b) => {
+                    let data = await b.getBData();
+                    if (data.owner === address) stars.push(data);
+                });
+                resolve(stars)
+            } catch (error) {
+                reject (new Error(error))
+            }
         });
     }
 
