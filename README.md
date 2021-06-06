@@ -1,4 +1,5 @@
 # Private Blockchain Application
+![Genesis](https://user-images.githubusercontent.com/68476971/120922324-4cea4300-c6ea-11eb-8bd9-2eb0bf3d1618.png)
 
 You are starting your journey as a Blockchain Developer, this project allows you to demonstrate
 that you are familiarized with the fundamentals concepts of a Blockchain platform.
