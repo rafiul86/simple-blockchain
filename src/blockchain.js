@@ -200,8 +200,19 @@ class Blockchain {
     validateChain() {
         let self = this;
         let errorLog = [];
-        return new Promise(async (resolve, reject) => {
-            
+        return new Promise((resolve, reject) => {
+            self.chain.forEach(block => {
+                const isValidBlock = block.validate();
+                if (!isValidBlock) {
+                    errorLog.push({ error: 'Block validation failed' })
+                }else{
+                    if(block.previousBlockHash !== self.chain[self.chain.length - 1].hash){
+                        errorLog.push({ error: 'Block validation failed' })
+                    }
+                }
+                
+            }              
+        );
         });
     }
 

@@ -17,6 +17,7 @@ class BlockchainController {
         this.submitStar();
         this.getBlockByHash();
         this.getStarsByOwner();
+        this.validateChainEP()
     }
 
     // Enpoint to Get a Block by Height (GET Endpoint)
@@ -94,6 +95,17 @@ class BlockchainController {
             }
             
         });
+    }
+    // This endpoint allows you to request the chain is valid or compromised
+    validateChainEP(){
+        this.app.get("/validateChain", async(req,res)=>{
+            let errorLog = await this.blockchain.validateChain();
+            if(errorLog !== 0){
+                return ('The Chain is compromised')
+            } else{
+                 console.log('empty chain')
+            }
+        })
     }
 
     // This endpoint allows you to request the list of Stars registered by an owner
