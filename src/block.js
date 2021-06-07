@@ -68,11 +68,11 @@ class Block {
     getBData() {
         let self = this;
         // Getting the encoded data saved in the Block
-        const encodedData = self.body;
+        let encodedData = self.body;
         // Decoding the data to retrieve the JSON representation of the object
-        const decodedData = hex2ascii(encodedData);
+        let decodedData = hex2ascii(encodedData);
         // Parse the data to an object to be retrieve.
-            const myData = JSON.parse(decodedData)
+            let myData = JSON.parse(decodedData)
         // Resolve with the data if the object isn't the Genesis block
             if( myData && self.height > 0){
                 return myData
