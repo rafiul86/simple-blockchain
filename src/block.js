@@ -71,7 +71,7 @@ class Block {
         // Decoding the data to retrieve the JSON representation of the object
         const decodedData = hex2ascii(encodedData);
         // Parse the data to an object to be retrieve.
-            const myData = JSON.parse(myData)
+            const myData = JSON.parse(decodedData)
         // Resolve with the data if the object isn't the Genesis block
             if( myData && this.height > 0){
                 return myData
