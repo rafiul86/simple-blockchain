@@ -206,12 +206,10 @@ class Blockchain {
     validateChain() {
         let self = this;
         let errorLog = [];
-        return new Promise((resolve, reject) => {
+        return new Promise( async(resolve, reject) => {
             self.chain.forEach(block => {
-                const isValidBlock = block.validate();
-                Promise.all([getChainHeight(), _addBlock(),requestMessageOwnershipVerification(),submitStar(),getBlockByHash(),getBlockByHeight(),getStarsByWalletAddress()]).then((values) => {
-                    console.log(values);
-                  })
+                const isValidBlock = await block.validate();
+                
                 if (!isValidBlock) {
                     errorLog.push({ error: 'Block validation failed' })
                 }else{
