@@ -178,15 +178,11 @@ class Blockchain {
      */
     getStarsByWalletAddress (address) {
         let self = this;
-        console.log(self.chain)
         let stars = [];
-        console.log(stars)
         return new Promise((resolve, reject) => {
             try {
                 self.chain.forEach(async(b) => {
                     let data = await b.getBData();
-                    console.log(data)
-                    console.log(b)
                     if ( data && data.owner === address ) {
                         resolve(stars.push(data))
                     } 
