@@ -77,7 +77,7 @@ class Block {
             if( myData && self.height > 0){
                 return myData
             }else {
-                console.log('no data found')
+                console.log('error')
             }
     }
 
