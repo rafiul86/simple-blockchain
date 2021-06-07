@@ -117,19 +117,20 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            try {
+            
                 let time = parseInt(message.split(':')[1]);
                 let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-                if(currentTime - time < 3000){
-                    if(bitcoinMessage.verify(message, address, signature)){
+                if(currentTime - time < 300){
+                    if( !bitcoinMessage.verify(message, address, signature)){
+                        reject (new Error('Could not verify signatur, address, message'))
+                    } else {
                         const data = { owner: address, star: star } 
                       const block = new BlockClass.Block(data); 
                       resolve(await self._addBlock(block));
+                        
                     }
                 } 
-            } catch (error) {
-                reject(new Error(error))
-            }
+           
         });
     }
 
