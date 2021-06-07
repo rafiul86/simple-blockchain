@@ -127,7 +127,7 @@ class Blockchain {
                         const data = { owner: address, star: star } 
                       const block = new BlockClass.Block(data); 
                       resolve(await self._addBlock(block));
-                        
+                        console.log(block)
                     }
                 } 
            
