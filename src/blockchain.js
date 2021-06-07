@@ -65,13 +65,13 @@ class Blockchain {
         let self = this;
         return new Promise(async (resolve, reject) => {
            try {
-            let chainHeight = await this.getChainHeight;
-            if(chainHeight > 0){
+            if(self.height > 0 ){
                 block.previousBlockHash = self.chain[self.chain.length - 1].hash;
             }
              block.time = new Date().getTime().toString().slice(0, -3);
              block.hash = SHA256(JSON.stringify(block)).toString();
              block.height = self.height + 1;
+             self.height++
              resolve(self.chain.push(block))
            } catch (error) {
                reject(new Error(error))
@@ -120,7 +120,7 @@ class Blockchain {
             
                 let time = parseInt(message.split(':')[1]);
                 let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-                if(currentTime - time < 300){
+                if(currentTime - time < 300000){
                     if( !bitcoinMessage.verify(message, address, signature)){
                         reject (new Error('Could not verify signatur, address, message'))
                     } else {
