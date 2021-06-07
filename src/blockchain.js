@@ -124,11 +124,11 @@ class Blockchain {
                     if( !bitcoinMessage.verify(message, address, signature)){
                         reject (new Error('Could not verify signatur, address, message'))
                     } else {
-                    //     const data = { "owner": "address", "star": "star" } 
-                    //   const block = new BlockClass.Block(data); 
-                    //   resolve(await self._addBlock(block));
-                    //     console.log(data)
-                        resolve(await self._addBlock(new BlockClass.Block({star: star,owner: address})));
+                        const data = { owner: address, star: star} 
+                      const block = new BlockClass.Block(data); 
+                      resolve(await self._addBlock(block));
+                        console.log(block)
+                        // resolve(await self._addBlock(new BlockClass.Block({star: star,owner: address})));
                     }
                 } 
            
