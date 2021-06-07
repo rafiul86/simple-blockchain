@@ -74,11 +74,13 @@ class Blockchain {
              block.hash = SHA256(JSON.stringify(block)).toString();
              block.height = self.height + 1;
              self.height++
-             resolve(self.chain.push(block))
+             self.chain.push(block)
+             resolve(block)
            } catch (error) {
                reject(new Error(error))
            }
         });
+        self.validateChain()
     }
 
     /**
@@ -133,6 +135,7 @@ class Blockchain {
                     reject (new Error('Error'))
                 }     
         });
+        self.validateChain()
     }
 
     /**
