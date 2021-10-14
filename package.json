@@ -1,5 +1,5 @@
 {
-  "name": "project_1",
+  "name": "Simple-Blockchain",
   "version": "1.0.0",
   "description": "This project creates a Blockchain application to store data into the blocks",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Udacity - jose.morales@udacity.com",
-  "license": "ISC",
+  "author": "Rafiul Hasan",
+  "license": "none",
   "dependencies": {
     "bitcoinjs-lib": "^4.0.3",
     "bitcoinjs-message": "^2.0.0",

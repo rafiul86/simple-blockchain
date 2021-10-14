@@ -34,7 +34,7 @@ class Blockchain {
      * Passing as a data `{data: 'Genesis Block'}`
      */
     async initializeChain() {
-        if( this.height === -1){
+        if( this.height === 0){
             let block = new BlockClass.Block({data: 'Genesis Block'});
             await this._addBlock(block);
         }
